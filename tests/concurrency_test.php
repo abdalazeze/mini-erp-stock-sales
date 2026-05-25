@@ -9,7 +9,7 @@
  *   3. php tests/concurrency_test.php
  */
 
-define('BASE_URL',     'http://localhost:8000/');
+define('BASE_URL',     'http://erp.local/');
 define('LOGIN_URL',    BASE_URL . 'auth/login');
 define('INVOICE_URL',  BASE_URL . 'invoices/save');
 
