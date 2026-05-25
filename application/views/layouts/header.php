@@ -58,3 +58,15 @@ $_user   = isset($this->auth_lib) ? $this->auth_lib->user() : null;
 </nav>
 
 <div class="container-fluid py-4 px-4">
+<?php if ($this->session->flashdata('success')): ?>
+    <div class="alert alert-success alert-dismissible fade show">
+        <?= htmlspecialchars($this->session->flashdata('success')) ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
+<?php if ($this->session->flashdata('error')): ?>
+    <div class="alert alert-danger alert-dismissible fade show">
+        <?= htmlspecialchars($this->session->flashdata('error')) ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+<?php endif; ?>
