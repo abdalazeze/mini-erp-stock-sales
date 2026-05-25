@@ -60,6 +60,19 @@ class Product_model extends CI_Model
         $this->db->where('id', $id)->update('products', ['is_active' => $p->is_active ? 0 : 1]);
     }
 
+    public function search($q, $limit = 10)
+    {
+        return $this->db->select('id, code, name, price')
+                        ->where('is_active', 1)
+                        ->group_start()
+                            ->like('name', $q)
+                            ->or_like('code', $q)
+                        ->group_end()
+                        ->limit($limit)
+                        ->get('products')
+                        ->result();
+    }
+
     public function code_exists($code, $exclude_id = null)
     {
         $this->db->where('code', $code);
