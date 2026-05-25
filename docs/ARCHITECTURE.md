@@ -118,7 +118,6 @@ mini_erp_stock_sales/
 │   └── concurrency_test.php      # curl_multi test: 2 simultaneous requests for last unit
 ├── .gitignore
 ├── .htaccess                     # mod_rewrite: removes index.php from URLs
-├── DECISIONS.md                  # Done/not-done list + key decisions
 ├── README.md                     # Setup instructions + default credentials
 └── index.php                     # CI3 front controller
 ```
