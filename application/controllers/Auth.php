@@ -6,6 +6,9 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('app');
+        $ci_lang = current_lang() === 'ar' ? 'arabic' : 'english';
+        $this->lang->load('ui', $ci_lang);
         $this->load->model('user_model');
         $this->load->library('auth_lib');
     }
@@ -36,7 +39,7 @@ class Auth extends CI_Controller
                 redirect('dashboard');
             }
 
-            $data['error'] = 'Invalid username or password.';
+            $data['error'] = lang('auth_invalid_credentials');
         }
 
         $this->load->view('auth/login', $data);

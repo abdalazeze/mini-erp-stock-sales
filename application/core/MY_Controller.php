@@ -8,6 +8,8 @@ class MY_Controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('app');
+        $this->_load_language();
         $this->load->model('user_model');
         $this->load->library('auth_lib');
 
@@ -16,6 +18,12 @@ class MY_Controller extends CI_Controller
         }
 
         $this->user = $this->auth_lib->user();
+    }
+
+    protected function _load_language()
+    {
+        $ci_lang = current_lang() === 'ar' ? 'arabic' : 'english';
+        $this->lang->load('ui', $ci_lang);
     }
 }
 
