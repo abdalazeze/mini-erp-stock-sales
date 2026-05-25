@@ -491,6 +491,12 @@ Requires `mod_rewrite` to be enabled in Apache. In WAMP: tray icon → Apache �
 | 17 | `fix: autoload language helper` | Added `language` to autoload helpers so `lang()` works in views |
 | 18 | `fix: product_id in stock select` | Added `s.product_id` to Stock_model::get_list() |
 | 19 | `feat: default language Arabic` | Changed default lang from `en` to `ar` in app_helper.php |
+| 20 | `fix: update concurrency test BASE_URL` | Changed localhost:8000 to erp.local in concurrency_test.php |
+| 21 | `docs: add full architecture documentation` | docs/ARCHITECTURE.md — full developer walkthrough |
+| 22 | `chore: move SmartLife_Plan.md into docs/` | Organised planning docs under docs/ |
+| 23 | `chore: move DECISIONS.md into docs/` | Organised decision docs under docs/ |
+| 24 | `docs: add docs/ reference table to README` | Reviewer-facing links to all docs |
+| 25 | `docs: update directory structure` | Kept ARCHITECTURE.md in sync after file moves |
 
 ---
 
