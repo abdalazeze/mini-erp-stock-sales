@@ -25,19 +25,16 @@ var INVOICE_CFG = {
     <div class="col-md-4">
         <label class="form-label"><?= lang('lbl_warehouse') ?></label>
         <?php if ($is_admin): ?>
-            <select name="warehouse_id" id="warehouse-select" class="form-select" required>
+            <select name="warehouse_id" class="form-select" required>
                 <option value=""></option>
                 <?php foreach ($warehouses as $w): ?>
                     <option value="<?= $w->id ?>"><?= htmlspecialchars($w->name) ?></option>
                 <?php endforeach; ?>
             </select>
         <?php else: ?>
-            <?php $wh = $warehouses[0] ?? null; // scoped to user's warehouse by controller ?>
-            <?php foreach ($warehouses as $w): ?>
-                <?php if ($w->id == $this->user->warehouse_id): $wh = $w; endif; ?>
-            <?php endforeach; ?>
+            <?php $wh = $warehouses[0] ?? null; ?>
             <input type="text" class="form-control" value="<?= htmlspecialchars($wh->name ?? '') ?>" disabled>
-            <input type="hidden" name="warehouse_id" id="warehouse-select" value="<?= $this->user->warehouse_id ?>">
+            <input type="hidden" name="warehouse_id" value="<?= $this->user->warehouse_id ?>">
         <?php endif; ?>
     </div>
 

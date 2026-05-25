@@ -13,12 +13,7 @@ class Stock extends MY_Controller
 
     public function index()
     {
-        // user_warehouse is always scoped to their warehouse — ignore GET param
-        if ($this->user->role === 'user_warehouse') {
-            $warehouse_id = (int) $this->user->warehouse_id;
-        } else {
-            $warehouse_id = (int) $this->input->get('warehouse_id');
-        }
+        $warehouse_id = $this->_scoped_warehouse_id();
 
         $data['page_title']   = lang('stock_title');
         $data['stock']        = $this->stock_model->get_list($warehouse_id ?: null);

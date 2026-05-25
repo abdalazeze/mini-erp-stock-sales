@@ -14,9 +14,7 @@ class Invoices extends MY_Controller
 
     public function index()
     {
-        $warehouse_id = $this->user->role === 'user_warehouse'
-            ? (int) $this->user->warehouse_id
-            : null;
+        $warehouse_id = $this->_scoped_warehouse_id() ?: null;
 
         $per_page = 20;
         $page     = max(1, (int) $this->input->get('page'));
@@ -38,11 +36,7 @@ class Invoices extends MY_Controller
 
     public function view($id)
     {
-        $warehouse_id = $this->user->role === 'user_warehouse'
-            ? (int) $this->user->warehouse_id
-            : null;
-
-        $invoice = $this->invoice_model->get($id, $warehouse_id);
+        $invoice = $this->invoice_model->get($id, $this->_scoped_warehouse_id() ?: null);
         if (!$invoice) {
             show_404();
         }
@@ -58,9 +52,17 @@ class Invoices extends MY_Controller
 
     public function create()
     {
+        // user_warehouse only ever sees their own warehouse in the dropdown
+        if ($this->user->role === 'user_warehouse') {
+            $wh         = $this->warehouse_model->get($this->user->warehouse_id);
+            $warehouses = $wh ? [$wh] : [];
+        } else {
+            $warehouses = $this->warehouse_model->all(true);
+        }
+
         $data['page_title'] = lang('invoices_new');
         $data['customers']  = $this->customer_model->all(true);
-        $data['warehouses'] = $this->warehouse_model->all(true);
+        $data['warehouses'] = $warehouses;
         $data['is_admin']   = $this->auth_lib->is_admin();
         $data['extra_js']   = 'assets/js/invoice.js';
 
@@ -75,10 +77,7 @@ class Invoices extends MY_Controller
             redirect('invoices/create');
         }
 
-        // Warehouse scope: user_warehouse cannot override their assigned warehouse via POST
-        $warehouse_id = $this->user->role === 'user_warehouse'
-            ? (int) $this->user->warehouse_id
-            : (int) $this->input->post('warehouse_id');
+        $warehouse_id = $this->_scoped_warehouse_id('post');
 
         $raw_lines = $this->input->post('lines') ?: [];
         if (!$raw_lines) {

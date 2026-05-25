@@ -32,6 +32,29 @@ class MY_Controller extends CI_Controller
             show_error('Forbidden', 403);
         }
     }
+
+    // Returns the warehouse_id the current user is allowed to act on.
+    // For user_warehouse: always their own, ignoring any request param.
+    // For admin: reads from GET or POST depending on $method.
+    protected function _scoped_warehouse_id($method = 'get')
+    {
+        if ($this->user->role === 'user_warehouse') {
+            return (int) $this->user->warehouse_id;
+        }
+        return $method === 'post'
+            ? (int) $this->input->post('warehouse_id')
+            : (int) $this->input->get('warehouse_id');
+    }
+
+    // Hard-stops a user_warehouse from accessing another warehouse's resource.
+    // Pass the warehouse_id that owns the requested resource.
+    protected function _warehouse_guard($warehouse_id)
+    {
+        if ($this->user->role === 'user_warehouse'
+            && (int) $this->user->warehouse_id !== (int) $warehouse_id) {
+            show_error('Forbidden', 403);
+        }
+    }
 }
 
 class Admin_Controller extends MY_Controller

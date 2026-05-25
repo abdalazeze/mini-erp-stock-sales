@@ -12,11 +12,8 @@ class Reports extends MY_Controller
 
     public function low_stock()
     {
-        $warehouse_id = $this->user->role === 'user_warehouse'
-            ? (int) $this->user->warehouse_id
-            : (int) $this->input->get('warehouse_id');
-
-        $search = $this->input->get('search', true) ?: '';
+        $warehouse_id = $this->_scoped_warehouse_id();
+        $search       = $this->input->get('search', true) ?: '';
 
         $data['page_title']   = lang('reports_low_stock');
         $data['rows']         = $this->stock_model->get_low_stock($warehouse_id ?: null, $search);
@@ -31,12 +28,9 @@ class Reports extends MY_Controller
 
     public function low_stock_csv()
     {
-        $warehouse_id = $this->user->role === 'user_warehouse'
-            ? (int) $this->user->warehouse_id
-            : (int) $this->input->get('warehouse_id');
-
-        $search = $this->input->get('search', true) ?: '';
-        $rows   = $this->stock_model->get_low_stock($warehouse_id ?: null, $search);
+        $warehouse_id = $this->_scoped_warehouse_id();
+        $search       = $this->input->get('search', true) ?: '';
+        $rows         = $this->stock_model->get_low_stock($warehouse_id ?: null, $search);
 
         // Flush CI3's output buffer so we can stream the file directly
         while (ob_get_level()) {
