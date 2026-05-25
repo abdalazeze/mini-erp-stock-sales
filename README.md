@@ -68,6 +68,19 @@ Expected output: `Result: 1 succeeded, 1 rejected. PASS`
 
 ---
 
+## Documentation
+
+All decision and architecture docs are in the `docs/` folder:
+
+| File | Contents |
+|------|----------|
+| `docs/DECISIONS.md` | Done/not-done list, key decisions, concurrency explanation + test output |
+| `docs/ARCHITECTURE.md` | Full developer walkthrough: schema, auth, RBAC, invoice flow, every controller and model |
+| `docs/SmartLife_Plan.md` | Original build plan |
+| `docs/Smart_Test.pdf` | Original brief |
+
+---
+
 ## Notes
 
 - `application/config/database.php` is excluded from git (see `.gitignore`). Use `database.php.example` as the template.
