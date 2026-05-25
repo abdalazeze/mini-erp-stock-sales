@@ -3,6 +3,7 @@ application/config/database.php
 
 # CI3 logs and cache
 application/logs/*.log
+application/logs/*.php
 application/cache/*
 
 # OS / editor
