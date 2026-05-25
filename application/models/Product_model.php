@@ -59,4 +59,13 @@ class Product_model extends CI_Model
         $p = $this->get($id);
         $this->db->where('id', $id)->update('products', ['is_active' => $p->is_active ? 0 : 1]);
     }
+
+    public function code_exists($code, $exclude_id = null)
+    {
+        $this->db->where('code', $code);
+        if ($exclude_id) {
+            $this->db->where('id !=', $exclude_id);
+        }
+        return $this->db->get('products')->num_rows() > 0;
+    }
 }

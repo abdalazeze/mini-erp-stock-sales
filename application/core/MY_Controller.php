@@ -25,6 +25,13 @@ class MY_Controller extends CI_Controller
         $ci_lang = current_lang() === 'ar' ? 'arabic' : 'english';
         $this->lang->load('ui', $ci_lang);
     }
+
+    protected function _admin_only()
+    {
+        if ($this->user->role !== 'admin') {
+            show_error('Forbidden', 403);
+        }
+    }
 }
 
 class Admin_Controller extends MY_Controller
