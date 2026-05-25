@@ -1,0 +1,16 @@
+# Database config with real credentials
+application/config/database.php
+
+# CI3 logs and cache
+application/logs/*.log
+application/cache/*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
+
+# Composer vendor (if used)
+vendor/
