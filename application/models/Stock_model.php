@@ -5,7 +5,7 @@ class Stock_model extends CI_Model
 {
     public function get_list($warehouse_id = null)
     {
-        $this->db->select('s.id, s.quantity, p.code AS product_code, p.name AS product_name,
+        $this->db->select('s.id, s.product_id, s.quantity, p.code AS product_code, p.name AS product_name,
                            p.alert_quantity, c.name AS category_name,
                            w.id AS warehouse_id, w.name AS warehouse_name')
                  ->from('stock s')
