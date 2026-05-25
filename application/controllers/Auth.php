@@ -21,7 +21,7 @@ class Auth extends CI_Controller
     public function login()
     {
         if ($this->auth_lib->check()) {
-            redirect('dashboard');
+            redirect('products');
         }
 
         $data = ['error' => ''];
@@ -36,7 +36,7 @@ class Auth extends CI_Controller
                     $this->input->post('password')
                 )
             ) {
-                redirect('dashboard');
+                redirect('products');
             }
 
             $data['error'] = lang('auth_invalid_credentials');
