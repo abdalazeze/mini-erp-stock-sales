@@ -111,6 +111,8 @@ mini_erp_stock_sales/
 │   └── seed.sql                  # Users, warehouses, categories, products, stock, customers
 ├── docs/
 │   ├── Smart_Test.pdf            # Original brief
+│   ├── SmartLife_Plan.md         # Build plan
+│   ├── DECISIONS.md              # Done/not-done, key decisions, concurrency test output
 │   └── ARCHITECTURE.md           # This file
 ├── tests/
 │   └── concurrency_test.php      # curl_multi test: 2 simultaneous requests for last unit
