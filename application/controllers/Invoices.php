@@ -9,12 +9,51 @@ class Invoices extends MY_Controller
         $this->load->model('customer_model');
         $this->load->model('warehouse_model');
         $this->load->model('product_model');
+        $this->load->model('invoice_model');
     }
 
     public function index()
     {
-        // Invoice list — commit #13
-        redirect('invoices/create');
+        $warehouse_id = $this->user->role === 'user_warehouse'
+            ? (int) $this->user->warehouse_id
+            : null;
+
+        $per_page = 20;
+        $page     = max(1, (int) $this->input->get('page'));
+        $offset   = ($page - 1) * $per_page;
+
+        $total  = $this->invoice_model->count_list($warehouse_id);
+        $pages  = $total > 0 ? (int) ceil($total / $per_page) : 1;
+
+        $data['page_title'] = lang('invoices_title');
+        $data['invoices']   = $this->invoice_model->get_list($warehouse_id, $per_page, $offset);
+        $data['total']      = $total;
+        $data['page']       = $page;
+        $data['pages']      = $pages;
+
+        $this->load->view('layouts/header', $data);
+        $this->load->view('invoices/index', $data);
+        $this->load->view('layouts/footer');
+    }
+
+    public function view($id)
+    {
+        $warehouse_id = $this->user->role === 'user_warehouse'
+            ? (int) $this->user->warehouse_id
+            : null;
+
+        $invoice = $this->invoice_model->get($id, $warehouse_id);
+        if (!$invoice) {
+            show_404();
+        }
+
+        $data['page_title'] = $invoice->invoice_no;
+        $data['invoice']    = $invoice;
+        $data['lines']      = $this->invoice_model->get_lines($id);
+
+        $this->load->view('layouts/header', $data);
+        $this->load->view('invoices/view', $data);
+        $this->load->view('layouts/footer');
     }
 
     public function create()
