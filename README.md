@@ -56,6 +56,48 @@ Point the virtual host document root at the project root. Ensure `mod_rewrite` i
 
 ---
 
+## Screenshots
+
+All screenshots taken in Arabic (RTL) mode.
+
+### Login
+![Login](screenshots/login.png)
+RTL layout, Bootstrap RTL stylesheet, EN/AR switcher on the login page itself.
+
+### Products
+![Products](screenshots/products.png)
+Paginated list with search and category filter. Active/disabled status badge. Admin sees edit and toggle-active buttons.
+
+### Categories
+![Categories](screenshots/categories.png)
+Admin-only. Simple CRUD with active/disabled toggle.
+
+### Warehouses
+![Warehouses](screenshots/wearhouses.png)
+Admin-only. Two warehouses seeded: Main and North.
+
+### Customers
+![Customers](screenshots/customers.png)
+Admin-only. Name, phone, active status.
+
+### Stock
+![Stock](screenshots/stock.png)
+Current quantity in bold. Row highlighted in amber when quantity is at or below the alert threshold — Printer Ink Black (qty 3, alert 5) shown highlighted.
+
+### New Invoice
+![New Invoice](screenshots/new_invoice.png)
+Product autocomplete search, dynamic line rows added via JS, live subtotal/discount/total calculation. Warehouse dropdown is disabled with a hidden input for `user_warehouse` role.
+
+### Invoice List
+![Invoices](screenshots/invoices.png)
+`INV-YYYY-NNNNNN` formatted numbers, customer, warehouse, date, total.
+
+### Invoice Detail
+![Invoice Detail](screenshots/show_invoice.png)
+Invoice header (number, customer, warehouse, date, created by) and line items with unit price and line total.
+
+---
+
 ## Concurrency test
 
 After importing the seed, ensure product `ELEC-004` (id=4) has exactly 1 unit in warehouse 1 (sell one first if needed), then:
